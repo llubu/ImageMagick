@@ -1,8 +1,7 @@
 ifneq ($(MAKECMDGOALS),clean)
-$(eval$(shell sh -e scripts/imageMagickInstall.sh))
+$(eval$(shell sh -e 3rdparty/ImageMagick/imageMagickInstall.sh))
 endif
 
 clean :
 	@echo 'Cleaning ImageMagick'
-	$(eval$(shell sh -e scripts/imageMagickClean.sh))
-
+	$(eval$(shell sh -e 3rdparty/ImageMagick/imageMagickClean.sh))
