@@ -7,6 +7,7 @@ CONFIG=$1
 ARCH=$2
 
 cd $HOME_DIR/3rdparty/ImageMagick
+git checkout origin/master
 if [ ! -f "$HOME_DIR/3rdparty/ImageMagick/Makefile" ]; then
 	./configure
 fi
