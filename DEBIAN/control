@@ -1,0 +1,9 @@
+Package: ImageMagick
+Section: custom
+Priority: optional
+Architecture: amd64
+Essential: no
+Maintainer:
+Depends: libomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22
+Built-Using: bomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22 
+Description: Installs ImageMagick headers and libraries

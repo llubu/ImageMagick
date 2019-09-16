@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Dpkg remove does prerm --> remove installed files --> postrm
+# Dpkg purge does remove --> postrm
+# Hence postrm is the common script run for both remove + purge
+
+set -e
+
+echo "Cleaning up in postrm"
+
+echo "Removing /opt/bin/ImageMagick"
+rm -rf /opt/bin/ImageMagick
+exit 0
