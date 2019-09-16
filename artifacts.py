@@ -4,7 +4,66 @@ import sys
 import subprocess
 import argparse
 import pdfkit
-import imagemagick_utils as imutils
+import signal
+
+g_process = None
+
+def LinuxDistro():
+	f = open("/etc/os-release", 'r').readlines()
+	for line in f:
+		if "ID_LIKE" in line:
+			distro=line.split("=")[1]
+	return distro
+
+def ParentSignalHandler(signal, frame):
+	print "Received SIGTERM ", signal
+	# Send signal to all children.
+	g_process.terminate()
+
+def RunCommand(cmd, errorMsg="", timeout = 60):
+	global g_process
+	print cmd
+	cmdList = cmd.split()
+	print cmdList
+	# TODO: Once we move to python3, use proc.communicate(timeout)
+	# to avoid slowing down each command by N sec or using timers.
+	# Race condition between timer.is_alive() and proc.kill()
+	signal.signal(signal.SIGTERM, ParentSignalHandler)
+	try:
+		g_process = subprocess.Popen(cmdList,
+			stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	except OSError as osErr:
+		print cmd
+		print("OSError: %s %s %s") % (osErr.errno, osErr.strerror,
+			osErr.filename)
+		return False
+	except subprocess.CalledProcessError as procErr:
+		print cmd
+		print "subprocess.CalledProcessError", procErr.output
+		return False
+
+	data, err = g_process.communicate()
+	print data
+	if g_process.returncode != 0:
+		print "Invalid returncode ", g_process.returncode
+		print err
+		return False
+
+	sleepTime = 0
+	while (sleepTime < timeout) and (g_process.poll() is None):
+		time.sleep(1)
+		sleepTime += 1
+	if (sleepTime == timeout) and (g_process.poll() is None):
+		print "Killing %d due to time out" % g_process.pid
+		try:
+			g_process.kill()
+		except:
+			# Process ended naturally after proc.poll()
+			# and before proc.kill().
+			return True
+		# Process didn't finish. Timed-out.
+		return False
+	return True
 
 def getCmdOutput(cmd):
 	try:
@@ -37,7 +96,7 @@ def make_deb(tag, build, config):
 			sys.exc_info()[0]
 		return False
 
-	if not imutils.RunCommand("./Debian.sh " + config,
+	if not RunCommand("./Debian.sh " + config,
 		"Unable to build imagemagick.deb"):
 		return False
 
@@ -52,19 +111,16 @@ def copy_deb(tag, build, config, uploadPath):
 
 	destDeb = pkgName + "_" + tag + "-" + build + ".deb"
 
-	if not imutils.RunCommand("cp package/" + pkgName + ".deb " + destDeb,
+	if not RunCommand("cp package/" + pkgName + ".deb " + destDeb,
 		"Unable to copy imagemagick.deb"):
-		imutils.RunCommand("ls -latr package")
+		RunCommand("ls -latr package")
 		return False
-	if not imutils.RunCommand("scp " + destDeb + " adabral@carbon:"
-		+ uploadPath, "Unable to scp artifact into archive path"):
-		return -2
 	return True
 
 def main():
-	#if not imutils.RunCommand("git clean -dxxf", "Failed git clean."):
+	#if not RunCommand("git clean -dxxf", "Failed git clean."):
 	#	return -1
-	if not imutils.RunCommand("git reset --hard", "Failed git reset."):
+	if not RunCommand("git reset --hard", "Failed git reset."):
 		return -2
 
 	# Input : archive location.
@@ -106,7 +162,7 @@ def main():
 		version += "-" + build
 	artifact = "imagemagick_" + version
 
-	distro = imutils.LinuxDistro()
+	distro = LinuxDistro()
 	if ("debian" in distro):
 		if not make_deb(tag, build, args.config):
 			return -2
