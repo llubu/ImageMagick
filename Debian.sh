@@ -13,6 +13,10 @@ make -j
 # Create package subdirectory (binaries, roms). Install at /opt/bin/skillet
 INSTALL_PATH=/opt/bin/
 
+#Cleanup resources to avoid any stale data
+rm -rf package
+rm -rf $FINAL_OUT_DIR
+
 #Fetch all the header files from MagickWand and MagickCore source
 mkdir -p $FINAL_OUT_DIR
 mkdir -p $FINAL_OUT_DIR/MagickWand/
@@ -36,7 +40,6 @@ rm -rf $FINAL_OUT_DIR/MagickCore/*.deps
 rm -rf $FINAL_OUT_DIR/MagickWand/*.libs
 rm -rf $FINAL_OUT_DIR/MagickWand/*.deps
 
-rm -rf package
 DATA_PKG_PATH=package/debian/$INSTALL_PATH/$PKG_NAME
 mkdir -p $DATA_PKG_PATH
 cp -r $FINAL_OUT_DIR/* $DATA_PKG_PATH/
