@@ -1,5 +1,5 @@
 #!/bin/bash
-FINAL_OUT_DIR=$FINAL_OUT_DIR
+FINAL_OUT_DIR=headers
 HOME_PATH=$(pwd)
 PKG_NAME=ImageMagick
 
@@ -52,5 +52,6 @@ dpkg-deb --verbose --build debian
 mv debian.deb $PKG_NAME.deb
 
 cd $HOME_PATH
+rm -rf $FINAL_OUT_DIR
 git checkout -- DEBIAN/postinst
 
