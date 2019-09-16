@@ -1,5 +1,5 @@
 #!/bin/bash
-FINAL_OUT_DIR=imagemagickDeb
+FINAL_OUT_DIR=$FINAL_OUT_DIR
 HOME_PATH=$(pwd)
 PKG_NAME=ImageMagick
 
@@ -14,25 +14,23 @@ make -j
 INSTALL_PATH=/opt/bin/
 
 #Fetch all the header files from MagickWand and MagickCore source
-rm -rf imagemagickDeb/MagickWand/*
-rm -rf imagemagickDeb/MagickCore/*
-rm -rf imagemagickDeb/*.so
+mkdir -p $FINAL_OUT_DIR
 
-cp -r MagickWand/*.h imagemagickDeb/MagickWand/ 
-cp -r MagickCore/*.h imagemagickDeb/MagickCore/ 
-cp MagickWand/.libs/*.so.6.0.0 imagemagickDeb/.
-cp MagickCore/.libs/*.so.6.0.0 imagemagickDeb/.
+cp -r MagickWand/*.h $FINAL_OUT_DIR/MagickWand/ 
+cp -r MagickCore/*.h $FINAL_OUT_DIR/MagickCore/ 
+cp MagickWand/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
+cp MagickCore/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
 
 #Create Symlinks to be used by skillet
-cd imagemagickDeb
+cd $FINAL_OUT_DIR
 ln -s libMagickWand-7.Q16HDRI.so.6.0.0 libMagickWand-7.Q16HDRI.so 
 ln -s libMagickCore-7.Q16HDRI.so.6.0.0 libMagickCore-7.Q16HDRI.so
 cd -
 
-rm -rf imagemagickDeb/MagickCore/*.libs
-rm -rf imagemagickDeb/MagickCore/*.deps
-rm -rf imagemagickDeb/MagickWand/*.libs
-rm -rf imagemagickDeb/MagickWand/*.deps
+rm -rf $FINAL_OUT_DIR/MagickCore/*.libs
+rm -rf $FINAL_OUT_DIR/MagickCore/*.deps
+rm -rf $FINAL_OUT_DIR/MagickWand/*.libs
+rm -rf $FINAL_OUT_DIR/MagickWand/*.deps
 
 PKG_INCLUDE=($FINAL_OUT_DIR/*)
 
