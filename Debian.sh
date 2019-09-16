@@ -15,6 +15,8 @@ INSTALL_PATH=/opt/bin/
 
 #Fetch all the header files from MagickWand and MagickCore source
 mkdir -p $FINAL_OUT_DIR
+mkdir -p $FINAL_OUT_DIR/MagickWand/
+mkdir -p $FINAL_OUT_DIR/MagickCore/
 
 cp -r MagickWand/*.h $FINAL_OUT_DIR/MagickWand/ 
 cp -r MagickCore/*.h $FINAL_OUT_DIR/MagickCore/ 
