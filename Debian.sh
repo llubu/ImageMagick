@@ -25,6 +25,8 @@ cp MagickCore/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
 
 #Create Symlinks to be used by skillet
 cd $FINAL_OUT_DIR
+rm -rf libMagickWand-7.Q16HDRI.so
+rm -rf libMagickCore-7.Q16HDRI.so
 ln -s libMagickWand-7.Q16HDRI.so.6.0.0 libMagickWand-7.Q16HDRI.so 
 ln -s libMagickCore-7.Q16HDRI.so.6.0.0 libMagickCore-7.Q16HDRI.so
 cd -
@@ -34,14 +36,10 @@ rm -rf $FINAL_OUT_DIR/MagickCore/*.deps
 rm -rf $FINAL_OUT_DIR/MagickWand/*.libs
 rm -rf $FINAL_OUT_DIR/MagickWand/*.deps
 
-PKG_INCLUDE=($FINAL_OUT_DIR/*)
 
 DATA_PKG_PATH=package/debian/$INSTALL_PATH/$PKG_NAME
-echo $DATA_PKG_PATH
 mkdir -p $DATA_PKG_PATH
-for item in ${PKG_INCLUDE[@]}; do
-	cp -r $item $DATA_PKG_PATH
-done
+cp -r $FINAL_OUT_DIR/* $DATA_PKG_PATH/
 
 # Dest format: package/debian/DEBIAN/[control, md5sum, postinst, prerm files]
 rm -rf package/debian/DEBIAN
