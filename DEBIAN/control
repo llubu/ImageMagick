@@ -4,10 +4,6 @@ Priority: optional
 Architecture: amd64
 Essential: no
 Maintainer:
-Depends: libomp-dev libdjvulibre-dev libwmf-dev liblqr-1-0-dev libgvc6 libcgraph6 libopenexr22
-Built-Using: -ljbig -llcms2 -ltiff -lfreetype -ljpeg -llqr-1 -lglib-2.0 -lpng12 
-	-ldjvulibre -lfontconfig -lfreetype -lwmflite -lXext -lXt -lSM -lICE
-	-lX11 -llzma -lbz2 -lIlmImf -lImath -lHalf -lIex -lIexMath -lIlmThread
-	-lpthread -lpangocairo-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lcairo
-	-lxml2 -lgvc -lcgraph -lcdt -lz -lm -lgomp
+Depends: libomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22
+Built-Using: bomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22 
 Description: Installs ImageMagick headers and libraries
