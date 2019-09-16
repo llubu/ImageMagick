@@ -61,18 +61,6 @@ def copy_deb(tag, build, config, uploadPath):
 		return -2
 	return True
 
-def make_rpm(version):
-	if not skutils.RunCommand("./CentOS.sh "  + version,
-		"Unable to build imagemagick.rpm"):
-		return -9
-
-def copy_rpm(tag, build):
-	# Copy skillet.rpm into artifact folder
-	destRpm = "/ImageMagick-" + tag + "-" + build + ".rpm"
-	if not skutils.RunCommand("cp package/ImageMagick.rpm " + destRpm,
-		"Unable to copy rpm."):
-		return -10
-
 def main():
 	#if not skutils.RunCommand("git clean -dxxf", "Failed git clean."):
 	#	return -1
@@ -127,10 +115,7 @@ def main():
 
 
 	elif ("rhel fedora" in distro):
-		if not make_rpm(version):
-			return -5
-		if not copy_rpm(tag, build):
-			return -6
+		return -5
 
 	return 0
 
