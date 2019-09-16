@@ -1,0 +1,8 @@
+Package: ImageMagick
+Section: custom
+Priority: optional
+Architecture: amd64
+Essential: no
+Maintainer: Palo Alto Networks
+Description: Installs ImageMagick headers and libraries
+Version: 7.0.8.63-0
