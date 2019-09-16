@@ -42,12 +42,10 @@ mkdir -p $DATA_PKG_PATH
 cp -r $FINAL_OUT_DIR/* $DATA_PKG_PATH/
 
 # Dest format: package/debian/DEBIAN/[control, md5sum, postinst, prerm files]
-rm -rf package/debian/DEBIAN
 cp -r DEBIAN package/debian/
 
 # Create the .deb (debian-binary, control.tar.gz, data.tar.xz)
 cd package
-rm -rf *.deb
 dpkg-deb --verbose --build debian
 mv debian.deb $PKG_NAME.deb
 
