@@ -76,8 +76,8 @@ def copy_rpm(tag, build):
 def main():
 	#if not skutils.RunCommand("git clean -dxxf", "Failed git clean."):
 	#	return -1
-	#if not skutils.RunCommand("git reset --hard", "Failed git reset."):
-	#	return -2
+	if not skutils.RunCommand("git reset --hard", "Failed git reset."):
+		return -2
 
 	# Input : archive location.
 	# Input : build package config (release|debug|coverage|ubsan|asan|san)

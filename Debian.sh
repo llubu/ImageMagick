@@ -1,7 +1,12 @@
 #!/bin/bash
 FINAL_OUT_DIR=imagemagickDeb
 HOME_PATH=$(pwd)
+PKG_NAME=ImageMagick
 
+
+if [ ! -f "Makefile" ]; then
+	./configure
+fi
 make clean
 make -j
 
