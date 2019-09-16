@@ -4,7 +4,7 @@ import sys
 import subprocess
 import argparse
 import pdfkit
-import skillet_utils as skutils
+import imagemagick_utils as imutils
 
 def getCmdOutput(cmd):
 	try:
@@ -37,14 +37,14 @@ def make_deb(tag, build, config):
 			sys.exc_info()[0]
 		return False
 
-	if not skutils.RunCommand("./Debian.sh " + config,
+	if not imutils.RunCommand("./Debian.sh " + config,
 		"Unable to build imagemagick.deb"):
 		return False
 
 	return True
 
 def copy_deb(tag, build, config, uploadPath):
-	# Copy skillet.deb into artifact folder
+	# Copy ImageMagick.deb into artifact folder
 	if config in ['ubsan', 'asan', 'san', 'debug', 'coverage']:
 		pkgName = "ImageMagick-" + config
 	else:
@@ -52,19 +52,19 @@ def copy_deb(tag, build, config, uploadPath):
 
 	destDeb = pkgName + "_" + tag + "-" + build + ".deb"
 
-	if not skutils.RunCommand("cp package/" + pkgName + ".deb " + destDeb,
+	if not imutils.RunCommand("cp package/" + pkgName + ".deb " + destDeb,
 		"Unable to copy imagemagick.deb"):
-		skutils.RunCommand("ls -latr package")
+		imutils.RunCommand("ls -latr package")
 		return False
-	if not skutils.RunCommand("scp " + destDeb + " adabral@carbon:"
+	if not imutils.RunCommand("scp " + destDeb + " adabral@carbon:"
 		+ uploadPath, "Unable to scp artifact into archive path"):
 		return -2
 	return True
 
 def main():
-	#if not skutils.RunCommand("git clean -dxxf", "Failed git clean."):
+	#if not imutils.RunCommand("git clean -dxxf", "Failed git clean."):
 	#	return -1
-	if not skutils.RunCommand("git reset --hard", "Failed git reset."):
+	if not imutils.RunCommand("git reset --hard", "Failed git reset."):
 		return -2
 
 	# Input : archive location.
@@ -72,7 +72,7 @@ def main():
 	parser = argparse.ArgumentParser(description=\
 		'Manage build artifacts.')
 	parser.add_argument('--path',
-		default='/pub/repository/apt/skillet/artifacts',
+		default='/pub/repository/apt/imagemagick/artifacts',
 		help='Path to store build artifacts')
 	parser.add_argument('--config',
 		default='release',
@@ -106,7 +106,7 @@ def main():
 		version += "-" + build
 	artifact = "imagemagick_" + version
 
-	distro = skutils.LinuxDistro()
+	distro = imutils.LinuxDistro()
 	if ("debian" in distro):
 		if not make_deb(tag, build, args.config):
 			return -2

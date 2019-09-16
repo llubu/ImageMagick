@@ -10,7 +10,7 @@ fi
 make clean
 make -j
 
-# Create package subdirectory (binaries, roms). Install at /opt/bin/skillet
+# Create package subdirectory. Install at /opt/bin/ImageMagick
 INSTALL_PATH=/opt/bin/
 
 #Cleanup resources to avoid any stale data
@@ -27,7 +27,7 @@ cp -r MagickCore/*.h $FINAL_OUT_DIR/MagickCore/
 cp MagickWand/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
 cp MagickCore/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
 
-#Create Symlinks to be used by skillet
+#Create Symlinks 
 cd $FINAL_OUT_DIR
 rm -rf libMagickWand-7.Q16HDRI.so
 rm -rf libMagickCore-7.Q16HDRI.so
