@@ -36,7 +36,7 @@ rm -rf $FINAL_OUT_DIR/MagickCore/*.deps
 rm -rf $FINAL_OUT_DIR/MagickWand/*.libs
 rm -rf $FINAL_OUT_DIR/MagickWand/*.deps
 
-
+rm -rf package
 DATA_PKG_PATH=package/debian/$INSTALL_PATH/$PKG_NAME
 mkdir -p $DATA_PKG_PATH
 cp -r $FINAL_OUT_DIR/* $DATA_PKG_PATH/
