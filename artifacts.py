@@ -3,7 +3,6 @@ import os
 import sys
 import subprocess
 import argparse
-import pdfkit
 import signal
 
 g_process = None
