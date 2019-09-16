@@ -1,5 +1,3 @@
 #!/bin/sh
-# Files parsed in lexical order, with default = 50-udev.rules.
-# So our personalized file should be parsed after it.
 set -e
 exit 0
