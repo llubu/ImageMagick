@@ -119,8 +119,8 @@ def copy_deb(tag, build, config, uploadPath):
 def main():
 	#if not RunCommand("git clean -dxxf", "Failed git clean."):
 	#	return -1
-	#if not RunCommand("git reset --hard", "Failed git reset."):
-	#	return -2
+	if not RunCommand("git reset --hard", "Failed git reset."):
+		return -2
 
 	# Input : archive location.
 	# Input : build package config (release|debug|coverage|ubsan|asan|san)

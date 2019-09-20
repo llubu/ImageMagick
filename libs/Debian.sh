@@ -4,9 +4,8 @@ HOME_PATH=$(pwd)
 PKG_NAME=ImageMagick-libs
 
 cd ..
-if [ ! -f "Makefile" ]; then
-	./configure
-fi
+make distclean
+./configure
 make clean
 make -j
 
@@ -47,5 +46,5 @@ mv debian.deb $PKG_NAME.deb
 
 cd $HOME_PATH
 rm -rf $FINAL_OUT_DIR
-#git checkout -- DEBIAN/postinst
+git checkout -- DEBIAN/postinst
 
