@@ -1,7 +1,7 @@
-Package: ImageMagick
+Package: ImageMagick-devel
 Section: custom
 Priority: optional
 Architecture: amd64
 Essential: no
 Maintainer: 3rd Party
-Description: Installs ImageMagick headers and libraries
+Description: Installs ImageMagick headers

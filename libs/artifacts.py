@@ -96,7 +96,7 @@ def make_deb(tag, build, config):
 		return False
 
 	if not RunCommand("./Debian.sh " + config,
-		"Unable to build imagemagick.deb"):
+		"Unable to build ImageMagick.deb"):
 		return False
 
 	return True
@@ -104,14 +104,14 @@ def make_deb(tag, build, config):
 def copy_deb(tag, build, config, uploadPath):
 	# Copy ImageMagick.deb into artifact folder
 	if config in ['ubsan', 'asan', 'san', 'debug', 'coverage']:
-		pkgName = "ImageMagick-" + config
+		pkgName = "ImageMagick-libs-" + config
 	else:
-		pkgName = "ImageMagick"
+		pkgName = "ImageMagick-libs"
 
 	destDeb = pkgName + "_" + tag + "-" + build + ".deb"
 
 	if not RunCommand("cp package/" + pkgName + ".deb " + destDeb,
-		"Unable to copy imagemagick.deb"):
+		"Unable to copy ImageMagick-libs.deb"):
 		RunCommand("ls -latr package")
 		return False
 	return True
@@ -127,7 +127,7 @@ def main():
 	parser = argparse.ArgumentParser(description=\
 		'Manage build artifacts.')
 	parser.add_argument('--path',
-		default='/pub/repository/apt/imagemagick/artifacts',
+		default='/pub/repository/apt/ImageMagick/artifacts',
 		help='Path to store build artifacts')
 	parser.add_argument('--config',
 		default='release',
@@ -159,7 +159,7 @@ def main():
 	version = tag
 	if build != 0:
 		version += "-" + build
-	artifact = "imagemagick_" + version
+	artifact = "ImageMagick-libs_" + version
 
 	distro = LinuxDistro()
 	if ("debian" in distro):

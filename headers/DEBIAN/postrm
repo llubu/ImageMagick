@@ -8,6 +8,6 @@ set -e
 
 echo "Cleaning up in postrm"
 
-echo "Removing /opt/bin/ImageMagick"
-rm -rf /opt/bin/ImageMagick
+echo "Removing /usr/local/include/ImageMagick-devel"
+rm -rf /usr/local/include/ImageMagick-devel
 exit 0

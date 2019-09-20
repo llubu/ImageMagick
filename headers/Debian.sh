@@ -1,17 +1,16 @@
 #!/bin/bash
 FINAL_OUT_DIR=headers
 HOME_PATH=$(pwd)
-PKG_NAME=ImageMagick
+PKG_NAME=ImageMagick-devel
 
-
-if [ ! -f "Makefile" ]; then
-	./configure
-fi
+cd ..
+make distclean
+./configure
 make clean
 make -j
-
+cd -
 # Create package subdirectory. Install at /opt/bin/ImageMagick
-INSTALL_PATH=/opt/bin/
+INSTALL_PATH=/usr/local/include
 
 #Cleanup resources to avoid any stale data
 rm -rf package
@@ -22,18 +21,8 @@ mkdir -p $FINAL_OUT_DIR
 mkdir -p $FINAL_OUT_DIR/MagickWand/
 mkdir -p $FINAL_OUT_DIR/MagickCore/
 
-cp -r MagickWand/*.h $FINAL_OUT_DIR/MagickWand/ 
-cp -r MagickCore/*.h $FINAL_OUT_DIR/MagickCore/ 
-cp MagickWand/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
-cp MagickCore/.libs/*.so.6.0.0 $FINAL_OUT_DIR/.
-
-#Create Symlinks 
-cd $FINAL_OUT_DIR
-rm -rf libMagickWand-7.Q16HDRI.so
-rm -rf libMagickCore-7.Q16HDRI.so
-ln -s libMagickWand-7.Q16HDRI.so.6.0.0 libMagickWand-7.Q16HDRI.so 
-ln -s libMagickCore-7.Q16HDRI.so.6.0.0 libMagickCore-7.Q16HDRI.so
-cd -
+cp -r ../MagickWand/*.h $FINAL_OUT_DIR/MagickWand/ 
+cp -r ../MagickCore/*.h $FINAL_OUT_DIR/MagickCore/ 
 
 rm -rf $FINAL_OUT_DIR/MagickCore/*.libs
 rm -rf $FINAL_OUT_DIR/MagickCore/*.deps
