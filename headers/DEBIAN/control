@@ -5,4 +5,3 @@ Architecture: amd64
 Essential: no
 Maintainer: 3rd Party
 Description: Installs ImageMagick headers
-Version: 7.0.8.63-0

@@ -1,8 +1,0 @@
-Package: ImageMagick-libs
-Section: custom
-Priority: optional
-Architecture: amd64
-Essential: no
-Maintainer: 3rd Party
-Description: Installs ImageMagick libs
-Version: 7.0.8.63-0
