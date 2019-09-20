@@ -3,7 +3,5 @@ Section: custom
 Priority: optional
 Architecture: amd64
 Essential: no
-Maintainer:
-Depends: libomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22
-Built-Using: bomp-dev, libdjvulibre-dev, libwmf-dev, liblqr-1-0-dev, libgvc6, libcgraph6, libopenexr22 
+Maintainer: 3rd Party
 Description: Installs ImageMagick headers and libraries
