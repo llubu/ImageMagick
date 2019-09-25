@@ -4,7 +4,7 @@ HOME_PATH=$(pwd)
 PKG_NAME=ImageMagick-devel
 
 cd ..
-if [ -f "Makefile"] then
+if [ -f "Makefile"]; then
         make distclean
 fi
 ./configure
