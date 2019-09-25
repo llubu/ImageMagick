@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+if [ -f "/etc/ld.so.conf.d/imagemagick.conf"]; then
+	/usr/bin/sudo rm -rf /etc/ld.so.conf.d/imagemagick.conf
+fi
+/usr/bin/sudo touch /etc/ld.so.conf.d/imagemagick.conf
+/usr/bin/sudo echo "/usr/local/lib/ImageMagick-libs" > /etc/ld.so.conf.d/imagemagick.conf
+/usr/bin/sudo ldconfig
+exit 0
