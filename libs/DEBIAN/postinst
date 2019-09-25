@@ -1,3 +1,4 @@
 #!/bin/sh
 set -e
+cd /usr/local/lib/ImageMagick-libs
 exit 0

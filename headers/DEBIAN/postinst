@@ -1,3 +1,4 @@
 #!/bin/sh
 set -e
+cd /usr/local/include/ImageMagick-devel
 exit 0
