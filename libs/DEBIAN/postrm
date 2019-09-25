@@ -1,4 +1,4 @@
-i#!/bin/sh
+#!/bin/sh
 
 # Dpkg remove does prerm --> remove installed files --> postrm
 # Dpkg purge does remove --> postrm
