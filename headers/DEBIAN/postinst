@@ -1,4 +1,8 @@
 #!/bin/sh
 set -e
-cd /usr/local/include/ImageMagick-devel
+DIR=/usr/local/include/ImageMagick-devel
+if [ ! -d "$DIR" ]; then
+	echo 'imagemagick-devel is already installed. Please use dpkg --purge imagemagick-devel before installing again'
+	exit 2
+fi
 exit 0

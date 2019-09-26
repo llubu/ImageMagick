@@ -1,4 +1,13 @@
 #!/bin/sh
 set -e
-cd /usr/local/lib/ImageMagick-libs
+DIR=/usr/local/lib/ImageMagick-libs
+FILE=/etc/ld.so.conf.d/imagemagick.conf
+if [ ! -d "$DIR" ]; then
+	echo 'imagemagick-libs is already installed. Please use dpkg --purge imagemagick-libs before installing again'
+	exit 2
+fi
+
+if [ -f "$FILE" ]; then
+	/usr/bin/sudo ldconfig
+fi
 exit 0
